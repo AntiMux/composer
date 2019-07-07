@@ -1,0 +1,23 @@
+version: '3'
+services:
+  nginx: 
+    image: nginx:latest
+#    volumes:
+#      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+      - 443:443
+
+  dashboards:
+    image: jcdemo/flaskapp
+    volumes:
+      - ./dashboards/src:/src
+    expose:
+      - "5000"
+
+  billing:
+    image: jcdemo/flaskapp
+    volumes:
+      - ./dashboards/src:/src
+    expose:
+      - "5000"
