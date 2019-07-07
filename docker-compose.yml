@@ -8,17 +8,30 @@ services:
     ports:
       - 80:80
       - 443:443
+    links:
+      - "dashboards"
+      - "billing"
+    networks:
+      - flaskapp
 
   dashboards:
     image: jcdemo/flaskapp
     volumes:
       - ./dashboards/src:/src
-    expose:
-      - "5000"
+    ports:
+      - 5000:5000
+    networks:
+      - flaskapp
 
   billing:
     image: jcdemo/flaskapp
     volumes:
       - ./billing/src:/src
-    expose:
-      - "5000"
+    ports:
+      - 5001:5000
+    networks:
+      - flaskapp
+  
+networks:
+  flaskapp:
+    driver: bridge
